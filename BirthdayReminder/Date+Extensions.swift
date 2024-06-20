@@ -1,5 +1,6 @@
 import Foundation
 
+
 extension Date {
     static var firstDayOfWeek = Calendar.current.firstWeekday
     static var capitalizedFirstLettersOfWeekdays: [String] {

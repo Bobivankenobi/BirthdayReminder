@@ -31,10 +31,10 @@
 		D5718F862C23639A008AC1B0 /* AddNewBirthdayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5718F852C23639A008AC1B0 /* AddNewBirthdayVC.swift */; };
 		D5718F8A2C2376DA008AC1B0 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5718F892C2376DA008AC1B0 /* Date+Extensions.swift */; };
 		D5718F902C2377FD008AC1B0 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5718F8F2C2377FD008AC1B0 /* Color+Extensions.swift */; };
-		D5B934AD2C24A6AD006D2C09 /* BirthdayCell 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B934A92C24A6AD006D2C09 /* BirthdayCell 2.swift */; };
-		D5B934AE2C24A6AD006D2C09 /* BirthdayMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B934AA2C24A6AD006D2C09 /* BirthdayMessageVC.swift */; };
-		D5B934AF2C24A6AD006D2C09 /* BirthdayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B934AB2C24A6AD006D2C09 /* BirthdayVC.swift */; };
-		D5B934B02C24A6AD006D2C09 /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B934AC2C24A6AD006D2C09 /* GroupCell.swift */; };
+		D5B934B42C24DBED006D2C09 /* BirthdayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B934B32C24DBED006D2C09 /* BirthdayVC.swift */; };
+		D5B934B62C24DC83006D2C09 /* BirthdayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B934B52C24DC83006D2C09 /* BirthdayCell.swift */; };
+		D5B934B82C24DCBB006D2C09 /* BirthdayMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B934B72C24DCBB006D2C09 /* BirthdayMessageVC.swift */; };
+		D5B934BA2C24DCDB006D2C09 /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B934B92C24DCDB006D2C09 /* GroupCell.swift */; };
 		D99090F8B30D579B67E24882 /* Pods_BirthdayReminderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D47F794A8FBF0A763A9CF863 /* Pods_BirthdayReminderTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,10 +89,10 @@
 		D5718F892C2376DA008AC1B0 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		D5718F8F2C2377FD008AC1B0 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		D596C83843272D7A5B7DF2B7 /* Pods-BirthdayReminderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BirthdayReminderTests.debug.xcconfig"; path = "Target Support Files/Pods-BirthdayReminderTests/Pods-BirthdayReminderTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D5B934A92C24A6AD006D2C09 /* BirthdayCell 2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "BirthdayCell 2.swift"; path = "../../../../Library/Mobile Documents/.Trash/BirthdayCell 2.swift"; sourceTree = "<group>"; };
-		D5B934AA2C24A6AD006D2C09 /* BirthdayMessageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BirthdayMessageVC.swift; path = "../../../../Library/Mobile Documents/.Trash/BirthdayMessageVC.swift"; sourceTree = "<group>"; };
-		D5B934AB2C24A6AD006D2C09 /* BirthdayVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BirthdayVC.swift; path = "../../../../Library/Mobile Documents/.Trash/BirthdayVC.swift"; sourceTree = "<group>"; };
-		D5B934AC2C24A6AD006D2C09 /* GroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GroupCell.swift; path = "../../../../Library/Mobile Documents/.Trash/GroupCell.swift"; sourceTree = "<group>"; };
+		D5B934B32C24DBED006D2C09 /* BirthdayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayVC.swift; sourceTree = "<group>"; };
+		D5B934B52C24DC83006D2C09 /* BirthdayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayCell.swift; sourceTree = "<group>"; };
+		D5B934B72C24DCBB006D2C09 /* BirthdayMessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayMessageVC.swift; sourceTree = "<group>"; };
+		D5B934B92C24DCDB006D2C09 /* GroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
 		E8EAFAC7745134D2A3DD2E7A /* Pods-BirthdayReminderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BirthdayReminderTests.release.xcconfig"; path = "Target Support Files/Pods-BirthdayReminderTests/Pods-BirthdayReminderTests.release.xcconfig"; sourceTree = "<group>"; };
 		FB76610F82F91D9BB4981591 /* Pods-BirthdayReminder-BirthdayReminderUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BirthdayReminder-BirthdayReminderUITests.debug.xcconfig"; path = "Target Support Files/Pods-BirthdayReminder-BirthdayReminderUITests/Pods-BirthdayReminder-BirthdayReminderUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -151,12 +151,6 @@
 		D531A3C72C220A9600956E9A = {
 			isa = PBXGroup;
 			children = (
-				D5718F8F2C2377FD008AC1B0 /* Color+Extensions.swift */,
-				D5718F892C2376DA008AC1B0 /* Date+Extensions.swift */,
-				D5718F772C223BA1008AC1B0 /* Group+CoreDataClass.swift */,
-				D5718F782C223BA1008AC1B0 /* Group+CoreDataProperties.swift */,
-				D5718F792C223BA1008AC1B0 /* Birthday+CoreDataClass.swift */,
-				D5718F7A2C223BA1008AC1B0 /* Birthday+CoreDataProperties.swift */,
 				D531A3D22C220A9600956E9A /* BirthdayReminder */,
 				D531A3EC2C220A9700956E9A /* BirthdayReminderTests */,
 				D531A3F62C220A9700956E9A /* BirthdayReminderUITests */,
@@ -179,14 +173,20 @@
 		D531A3D22C220A9600956E9A /* BirthdayReminder */ = {
 			isa = PBXGroup;
 			children = (
+				D5718F8F2C2377FD008AC1B0 /* Color+Extensions.swift */,
+				D5718F892C2376DA008AC1B0 /* Date+Extensions.swift */,
+				D5718F772C223BA1008AC1B0 /* Group+CoreDataClass.swift */,
+				D5718F782C223BA1008AC1B0 /* Group+CoreDataProperties.swift */,
+				D5718F792C223BA1008AC1B0 /* Birthday+CoreDataClass.swift */,
+				D5718F7A2C223BA1008AC1B0 /* Birthday+CoreDataProperties.swift */,
 				D5718F632C220FB6008AC1B0 /* CalendarVC.swift */,
 				D5718F852C23639A008AC1B0 /* AddNewBirthdayVC.swift */,
 				D5718F652C2228A0008AC1B0 /* AddNewGroupVC.swift */,
+				D5B934B32C24DBED006D2C09 /* BirthdayVC.swift */,
+				D5B934B72C24DCBB006D2C09 /* BirthdayMessageVC.swift */,
+				D5B934B52C24DC83006D2C09 /* BirthdayCell.swift */,
+				D5B934B92C24DCDB006D2C09 /* GroupCell.swift */,
 				D5718F812C2358B3008AC1B0 /* ColorPickerVC.swift */,
-				D5B934A92C24A6AD006D2C09 /* BirthdayCell 2.swift */,
-				D5B934AA2C24A6AD006D2C09 /* BirthdayMessageVC.swift */,
-				D5B934AB2C24A6AD006D2C09 /* BirthdayVC.swift */,
-				D5B934AC2C24A6AD006D2C09 /* GroupCell.swift */,
 				D5718F612C220F7A008AC1B0 /* TagVC.swift */,
 				D5718F7F2C235897008AC1B0 /* IconPickerVC.swift */,
 				D531A3D32C220A9600956E9A /* AppDelegate.swift */,
@@ -460,23 +460,23 @@
 				D531A3D82C220A9600956E9A /* ViewController.swift in Sources */,
 				D5718F802C235897008AC1B0 /* IconPickerVC.swift in Sources */,
 				D531A3D42C220A9600956E9A /* AppDelegate.swift in Sources */,
-				D5B934AF2C24A6AD006D2C09 /* BirthdayVC.swift in Sources */,
 				D5718F642C220FB6008AC1B0 /* CalendarVC.swift in Sources */,
+				D5B934B62C24DC83006D2C09 /* BirthdayCell.swift in Sources */,
 				D5718F622C220F7A008AC1B0 /* TagVC.swift in Sources */,
 				D531A3DE2C220A9600956E9A /* BirthdayReminder.xcdatamodeld in Sources */,
 				D5718F8A2C2376DA008AC1B0 /* Date+Extensions.swift in Sources */,
 				D5718F862C23639A008AC1B0 /* AddNewBirthdayVC.swift in Sources */,
-				D5B934AD2C24A6AD006D2C09 /* BirthdayCell 2.swift in Sources */,
 				D5718F7B2C223BA1008AC1B0 /* Group+CoreDataClass.swift in Sources */,
 				D5718F662C2228A0008AC1B0 /* AddNewGroupVC.swift in Sources */,
+				D5B934B82C24DCBB006D2C09 /* BirthdayMessageVC.swift in Sources */,
 				D5718F7C2C223BA1008AC1B0 /* Group+CoreDataProperties.swift in Sources */,
 				D5718F7D2C223BA1008AC1B0 /* Birthday+CoreDataClass.swift in Sources */,
 				D5718F902C2377FD008AC1B0 /* Color+Extensions.swift in Sources */,
-				D5B934B02C24A6AD006D2C09 /* GroupCell.swift in Sources */,
+				D5B934BA2C24DCDB006D2C09 /* GroupCell.swift in Sources */,
 				D5718F822C2358B3008AC1B0 /* ColorPickerVC.swift in Sources */,
-				D5B934AE2C24A6AD006D2C09 /* BirthdayMessageVC.swift in Sources */,
 				D5718F7E2C223BA1008AC1B0 /* Birthday+CoreDataProperties.swift in Sources */,
 				D531A3D62C220A9600956E9A /* SceneDelegate.swift in Sources */,
+				D5B934B42C24DBED006D2C09 /* BirthdayVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
