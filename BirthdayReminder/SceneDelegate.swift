@@ -17,6 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the initial view controller from the storyboard
         let initialViewController = storyboard.instantiateInitialViewController() as! UITabBarController
         
+        
         // Set up the context for the initial view controller
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         print("Context in SceneDelegate: \(context)")

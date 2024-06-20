@@ -12,6 +12,7 @@ class AddNewGroupVC: UIViewController, IconPickerVCDelegate, ColorPickerVCDelega
     var selectedIcon: String = "figure.walk" // default icon
     var selectedColor: UIColor = .red // default color
 
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Create New Birthday Group"

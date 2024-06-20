@@ -14,6 +14,7 @@ class ColorPickerVC: UIViewController {
         .systemGray, .systemBrown, .systemMint, .systemCyan, .systemPink, .systemIndigo, .systemYellow
     ]
 
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Select Your Group Color"

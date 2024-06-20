@@ -12,6 +12,38 @@ class TagVC: UIViewController, UITableViewDelegate, UITableViewDataSource, AddNe
         tableView.register(GroupCell.self, forCellReuseIdentifier: "GroupCell")
         return tableView
     }()
+    
+    private let noGroupsView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(systemName: "gift.fill") // Use a suitable icon
+        imageView.tintColor = .gray
+        view.addSubview(imageView)
+        
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "In order to create new birthday group tap the add icon"
+        label.textAlignment = .center
+        label.textColor = .gray
+        label.numberOfLines = 0
+        view.addSubview(label)
+        
+        NSLayoutConstraint.activate([
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20),
+            imageView.heightAnchor.constraint(equalToConstant: 50),
+            imageView.widthAnchor.constraint(equalToConstant: 50),
+            
+            label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
+        
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,10 +53,10 @@ class TagVC: UIViewController, UITableViewDelegate, UITableViewDataSource, AddNe
         setupTableView()
         fetchGroups()
         
-        // Add observer for GroupDeleted and BirthdayAdded notification
-        NotificationCenter.default.addObserver(self, selector: #selector(fetchGroups), name: NSNotification.Name("GroupDeleted"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(fetchGroups), name: NSNotification.Name("BirthdayAdded"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(fetchGroups), name: NSNotification.Name("BirthdayDeleted"), object: nil)
+        // Add observer for GroupDeleted notification
+        NotificationCenter.default.addObserver(self, selector: #selector(groupDeleted(_:)), name: NSNotification.Name("GroupDeleted"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(birthdayAdded(_:)), name: NSNotification.Name("BirthdayAdded"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(birthdayDeleted(_:)), name: NSNotification.Name("BirthdayDeleted"), object: nil)
     }
 
     deinit {
@@ -70,13 +102,35 @@ class TagVC: UIViewController, UITableViewDelegate, UITableViewDataSource, AddNe
         ])
     }
 
-    @objc private func fetchGroups() {
+    private func setupNoGroupsView() {
+        view.addSubview(noGroupsView)
+        NSLayoutConstraint.activate([
+            noGroupsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noGroupsView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            noGroupsView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            noGroupsView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
+    }
+
+    private func fetchGroups() {
         let fetchRequest: NSFetchRequest<Group> = Group.fetchRequest()
         do {
             groups = try managedContext.fetch(fetchRequest)
             tableView.reloadData()
+            updateView()
         } catch let error as NSError {
             print("Could not fetch groups. \(error), \(error.userInfo)")
+        }
+    }
+
+    private func updateView() {
+        if groups.isEmpty {
+            tableView.isHidden = true
+            setupNoGroupsView()
+            noGroupsView.isHidden = false
+        } else {
+            tableView.isHidden = false
+            noGroupsView.isHidden = true
         }
     }
 
@@ -103,11 +157,13 @@ class TagVC: UIViewController, UITableViewDelegate, UITableViewDataSource, AddNe
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! GroupCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as? GroupCell else {
+            fatalError("The dequeued cell is not an instance of GroupCell.")
+        }
         let group = groups[indexPath.row]
         let birthdayCount = countBirthdays(for: group)
-        cell.configure(with: group, birthdayCount: birthdayCount) {
-            self.deleteGroup(at: indexPath)
+        cell.configure(with: group, birthdayCount: birthdayCount) { [weak self] in
+            self?.deleteGroup(at: indexPath)
         }
         return cell
     }
@@ -132,7 +188,8 @@ class TagVC: UIViewController, UITableViewDelegate, UITableViewDataSource, AddNe
         do {
             try managedContext.save()
             groups.remove(at: indexPath.row)
-            tableView.reloadData()
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            updateView()
 
             // Post notification to update the calendar
             NotificationCenter.default.post(name: NSNotification.Name("GroupDeleted"), object: nil)
@@ -147,5 +204,17 @@ class TagVC: UIViewController, UITableViewDelegate, UITableViewDataSource, AddNe
         birthdayVC.group = group
         birthdayVC.managedContext = managedContext
         navigationController?.pushViewController(birthdayVC, animated: true)
+    }
+
+    @objc private func groupDeleted(_ notification: Notification) {
+        fetchGroups()
+    }
+
+    @objc private func birthdayAdded(_ notification: Notification) {
+        fetchGroups()
+    }
+
+    @objc private func birthdayDeleted(_ notification: Notification) {
+        fetchGroups()
     }
 }

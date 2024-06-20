@@ -11,6 +11,7 @@ class AddNewBirthdayVC: UIViewController {
     var managedContext: NSManagedObjectContext!
     var group: Group?
 
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Create New Birthday"

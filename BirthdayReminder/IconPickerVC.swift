@@ -15,6 +15,7 @@ class IconPickerVC: UIViewController {
         "music.note", "star"
     ]
 
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Select Your Group Icon"

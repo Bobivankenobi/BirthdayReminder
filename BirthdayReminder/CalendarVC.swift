@@ -100,6 +100,7 @@ class CalendarVC: UIViewController, FSCalendarDelegate, FSCalendarDataSource, UI
         cell.textLabel?.text = "\(birthday.name ?? "No Name") - \(birthday.comment ?? "")"
         return cell
     }
+    
 
     // FSCalendarDelegateAppearance
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
