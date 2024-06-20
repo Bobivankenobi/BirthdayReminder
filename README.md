@@ -117,7 +117,7 @@ Users can create and manage birthday groups, add birthdays to groups, view upcom
 ![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 24 38](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/45bf8de5-03d1-44e1-86dd-63970344e13c)
 ![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 22 47](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/b02f2310-4ceb-46a5-8ec1-136057537a93)
 ![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 21 13](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/33dddf50-20bf-4049-8e9a-6b892848bc40)
-:![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 21 42](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/09c69369-e8f3-440e-9b0c-6d31bdce3380)
+![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 21 42](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/09c69369-e8f3-440e-9b0c-6d31bdce3380)
 ![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 20 44](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/6913b575-f49c-413c-80bf-4f9a155a012c)
 ![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 12 17](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/20b9606c-9a66-43ac-9e24-b56092b68406)
 ![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 24 20](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/c21f4708-b9b5-491e-b386-5742fb6498ce)
