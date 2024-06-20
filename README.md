@@ -87,7 +87,6 @@ Users can create and manage birthday groups, add birthdays to groups, view upcom
    ```bash
    GET https://ajith-messages.p.rapidapi.com/getMsgs?category=birthdaypod install
 
-
 # Code Structure
 
 ## View Controllers
