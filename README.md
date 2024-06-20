@@ -75,8 +75,19 @@ Users can create and manage birthday groups, add birthdays to groups, view upcom
 - You will receive a notification at 9 AM on the day of someone's birthday.
 - Make sure to allow notifications for the app in your device settings.
 
-# Code Structure
+## Fetching Random Birthday Messages
+- When you tap on a birthday, the app fetches and displays a random birthday message using RapidAPI.
 
+## Integration with RapidAPI
+- The app uses the ajith-messages API from RapidAPI to fetch random birthday messages. The integration works as follows:
+- When a birthday is selected, a network request is made to the API. A random birthday message is fetched and displayed in the BirthdayMessageVC.
+
+1. **Example API request:**
+
+   ```bash
+   GET https://ajith-messages.p.rapidapi.com/getMsgs?category=birthdaypod install
+
+# Code Structure
 
 ## View Controllers
 
