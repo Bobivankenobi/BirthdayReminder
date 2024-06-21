@@ -26,7 +26,7 @@ Users can create and manage birthday groups, add birthdays to groups, view upcom
 2. **Navigate to the project directory::**
 
    ```bash
-   cd birthday-reminder
+   cd BirthdayReminder
 
 3. **Open the Xcode project:**
 
