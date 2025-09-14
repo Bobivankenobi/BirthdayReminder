@@ -15,7 +15,7 @@ class AddNewGroupVC: UIViewController, IconPickerVCDelegate, ColorPickerVCDelega
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Create New Birthday Group"
+        label.text = "Create New Birthday Group2xxx"
         label.font = UIFont.boldSystemFont(ofSize: 24)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false

@@ -5,6 +5,10 @@ target 'BirthdayReminder' do
 
   # Pods for BirthdayReminder
   pod 'FSCalendar'
+  
+  # Firebase Authentication
+  pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
 
   post_install do |installer|
     installer.generated_projects.each do |project|

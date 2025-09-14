@@ -35,9 +35,6 @@
 		D5B934B62C24DC83006D2C09 /* BirthdayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B934B52C24DC83006D2C09 /* BirthdayCell.swift */; };
 		D5B934B82C24DCBB006D2C09 /* BirthdayMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B934B72C24DCBB006D2C09 /* BirthdayMessageVC.swift */; };
 		D5B934BA2C24DCDB006D2C09 /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B934B92C24DCDB006D2C09 /* GroupCell.swift */; };
-		713EEC311D204F91A4FC1C04 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91299295EDF4EF4934BBDD4 /* AuthenticationManager.swift */; };
-		C6FC9EF3F82642B69B0E70B8 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37896DB709A4EAF8A216DED /* AuthenticationViewController.swift */; };
-		B53639A4B10744CA86DE54AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A42B0243B0CB4BCEB6090B07 /* GoogleService-Info.plist */; };
 		D99090F8B30D579B67E24882 /* Pods_BirthdayReminderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D47F794A8FBF0A763A9CF863 /* Pods_BirthdayReminderTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -96,9 +93,6 @@
 		D5B934B52C24DC83006D2C09 /* BirthdayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayCell.swift; sourceTree = "<group>"; };
 		D5B934B72C24DCBB006D2C09 /* BirthdayMessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayMessageVC.swift; sourceTree = "<group>"; };
 		D5B934B92C24DCDB006D2C09 /* GroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
-		D91299295EDF4EF4934BBDD4 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
-		B37896DB709A4EAF8A216DED /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
-		A42B0243B0CB4BCEB6090B07 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E8EAFAC7745134D2A3DD2E7A /* Pods-BirthdayReminderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BirthdayReminderTests.release.xcconfig"; path = "Target Support Files/Pods-BirthdayReminderTests/Pods-BirthdayReminderTests.release.xcconfig"; sourceTree = "<group>"; };
 		FB76610F82F91D9BB4981591 /* Pods-BirthdayReminder-BirthdayReminderUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BirthdayReminder-BirthdayReminderUITests.debug.xcconfig"; path = "Target Support Files/Pods-BirthdayReminder-BirthdayReminderUITests/Pods-BirthdayReminder-BirthdayReminderUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -194,8 +188,6 @@
 				D5B934B92C24DCDB006D2C09 /* GroupCell.swift */,
 				D5718F812C2358B3008AC1B0 /* ColorPickerVC.swift */,
 				D5718F612C220F7A008AC1B0 /* TagVC.swift */,
-				D91299295EDF4EF4934BBDD4 /* AuthenticationManager.swift */,
-				B37896DB709A4EAF8A216DED /* AuthenticationViewController.swift */,
 				D5718F7F2C235897008AC1B0 /* IconPickerVC.swift */,
 				D531A3D32C220A9600956E9A /* AppDelegate.swift */,
 				D531A3D52C220A9600956E9A /* SceneDelegate.swift */,
@@ -204,7 +196,6 @@
 				D531A3DF2C220A9700956E9A /* Assets.xcassets */,
 				D531A3E12C220A9700956E9A /* LaunchScreen.storyboard */,
 				D531A3E42C220A9700956E9A /* Info.plist */,
-				A42B0243B0CB4BCEB6090B07 /* GoogleService-Info.plist */,
 				D531A3DC2C220A9600956E9A /* BirthdayReminder.xcdatamodeld */,
 			);
 			path = BirthdayReminder;
@@ -339,7 +330,6 @@
 				D531A3E32C220A9700956E9A /* LaunchScreen.storyboard in Resources */,
 				D531A3E02C220A9700956E9A /* Assets.xcassets in Resources */,
 				D531A3DB2C220A9600956E9A /* Main.storyboard in Resources */,
-				B53639A4B10744CA86DE54AA /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,8 +477,6 @@
 				D5718F7E2C223BA1008AC1B0 /* Birthday+CoreDataProperties.swift in Sources */,
 				D531A3D62C220A9600956E9A /* SceneDelegate.swift in Sources */,
 				D5B934B42C24DBED006D2C09 /* BirthdayVC.swift in Sources */,
-				713EEC311D204F91A4FC1C04 /* AuthenticationManager.swift in Sources */,
-				C6FC9EF3F82642B69B0E70B8 /* AuthenticationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
