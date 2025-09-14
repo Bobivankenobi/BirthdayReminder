@@ -1,12 +1,16 @@
 import UIKit
 import CoreData
 import UserNotifications
+import FirebaseFirestore
 
 class BirthdayVC: UIViewController, UITableViewDelegate, UITableViewDataSource, AddNewBirthdayVCDelegate {
 
-    var managedContext: NSManagedObjectContext!
-    var group: Group!
-    var birthdays: [Birthday] = []
+    var managedContext: NSManagedObjectContext! // Keep for migration
+    var group: Group! // Keep for Core Data compatibility
+    var firestoreGroup: FirestoreGroup?
+    var birthdays: [FirestoreBirthday] = []
+    private let firestoreManager = FirestoreManager.shared
+    private var birthdaysListener: ListenerRegistration?
 
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -50,20 +54,17 @@ class BirthdayVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.title = group.name
+        
+        // Set title from Firestore group if available, otherwise use Core Data group
+        navigationItem.title = firestoreGroup?.name ?? group?.name ?? "Birthdays"
+        
         configureItems()
         setupTableView()
-        fetchBirthdays()
-        
-        // Add observer for BirthdayDeleted and BirthdayAdded notification
-        NotificationCenter.default.addObserver(self, selector: #selector(fetchBirthdays), name: NSNotification.Name("BirthdayDeleted"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(fetchBirthdays), name: NSNotification.Name("BirthdayAdded"), object: nil)
+        setupFirestoreListener()
     }
 
     deinit {
-        // Remove observer when the view controller is deallocated
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("BirthdayDeleted"), object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("BirthdayAdded"), object: nil)
+        birthdaysListener?.remove()
     }
 
     private func configureItems() {
@@ -77,8 +78,9 @@ class BirthdayVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     @objc private func addBirthday() {
         let addBirthdayVC = AddNewBirthdayVC()
         addBirthdayVC.modalPresentationStyle = .pageSheet
-        addBirthdayVC.managedContext = managedContext
-        addBirthdayVC.group = group
+        addBirthdayVC.managedContext = managedContext // Keep for migration
+        addBirthdayVC.group = group // Keep for Core Data compatibility
+        addBirthdayVC.firestoreGroup = firestoreGroup // Pass Firestore group
         addBirthdayVC.delegate = self
 
         if let sheet = addBirthdayVC.sheetPresentationController {
@@ -113,17 +115,32 @@ class BirthdayVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         ])
     }
 
-    @objc private func fetchBirthdays() {
-        let fetchRequest: NSFetchRequest<Birthday> = Birthday.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "group == %@", group)
-        do {
-            birthdays = try managedContext.fetch(fetchRequest)
-            tableView.reloadData()
-            updateView()
-            scheduleBirthdayNotifications()
-        } catch let error as NSError {
-            print("Could not fetch birthdays. \(error), \(error.userInfo)")
+    private func setupFirestoreListener() {
+        guard let groupId = firestoreGroup?.id else {
+            print("No Firestore group ID available")
+            return
         }
+        
+        birthdaysListener = firestoreManager.listenToBirthdays(for: groupId) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let birthdays):
+                    self?.birthdays = birthdays
+                    self?.tableView.reloadData()
+                    self?.updateView()
+                    self?.scheduleBirthdayNotifications()
+                case .failure(let error):
+                    print("Error fetching birthdays: \(error)")
+                    self?.showErrorAlert("Failed to load birthdays: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    private func showErrorAlert(_ message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 
     private func updateView() {
@@ -139,8 +156,7 @@ class BirthdayVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
 
     // AddNewBirthdayVCDelegate Method
     func didAddBirthday() {
-        fetchBirthdays()
-        NotificationCenter.default.post(name: NSNotification.Name("BirthdayAdded"), object: nil)
+        // Firestore listener will automatically update the UI
     }
 
     // TableView DataSource Methods
@@ -158,17 +174,20 @@ class BirthdayVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
 
     private func deleteBirthday(at indexPath: IndexPath) {
-        let birthdayToDelete = birthdays[indexPath.row]
-        managedContext.delete(birthdayToDelete)
-        do {
-            try managedContext.save()
-            birthdays.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-            updateView()
-            scheduleBirthdayNotifications()
-            NotificationCenter.default.post(name: NSNotification.Name("BirthdayDeleted"), object: nil)
-        } catch let error as NSError {
-            print("Could not delete birthday. \(error), \(error.userInfo)")
+        let birthday = birthdays[indexPath.row]
+        guard let birthdayId = birthday.id else { return }
+        
+        firestoreManager.deleteBirthday(birthdayId) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success():
+                    // Firestore listener will automatically update the UI
+                    print("Birthday deleted successfully")
+                case .failure(let error):
+                    print("Error deleting birthday: \(error)")
+                    self?.showErrorAlert("Failed to delete birthday: \(error.localizedDescription)")
+                }
+            }
         }
     }
 
@@ -186,13 +205,13 @@ class BirthdayVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         }
     }
 
-    private func scheduleNotification(for birthday: Birthday) {
+    private func scheduleNotification(for birthday: FirestoreBirthday) {
         let content = UNMutableNotificationContent()
         content.title = "Birthday Reminder"
-        content.body = "It's \(birthday.name ?? "someone's") birthday today! Wish them all the best."
+        content.body = "It's \(birthday.name) birthday today! Wish them all the best."
         content.sound = .default
 
-        var dateComponents = Calendar.current.dateComponents([.month, .day], from: birthday.date ?? Date())
+        var dateComponents = Calendar.current.dateComponents([.month, .day], from: birthday.dateValue)
         dateComponents.hour = 9  // Notify at 9 AM
 
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)

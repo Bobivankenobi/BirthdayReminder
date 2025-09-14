@@ -1,5 +1,7 @@
 import UIKit
 import CoreData
+import FirebaseFirestore
+import FirebaseAuth
 
 protocol AddNewGroupVCDelegate: AnyObject {
     func didAddGroup()
@@ -8,9 +10,10 @@ protocol AddNewGroupVCDelegate: AnyObject {
 class AddNewGroupVC: UIViewController, IconPickerVCDelegate, ColorPickerVCDelegate {
 
     weak var delegate: AddNewGroupVCDelegate?
-    var managedContext: NSManagedObjectContext!
+    var managedContext: NSManagedObjectContext! // Keep for migration
     var selectedIcon: String = "figure.walk" // default icon
     var selectedColor: UIColor = .red // default color
+    private let firestoreManager = FirestoreManager.shared
 
     
     private let titleLabel: UILabel = {
@@ -151,24 +154,42 @@ class AddNewGroupVC: UIViewController, IconPickerVCDelegate, ColorPickerVCDelega
     }
 
     @objc private func createGroup() {
-        let name = nameTextField.text ?? "No Name"
-        let icon = selectedIcon
-        let color = selectedColor.toHexString()
-
-        let group = Group(context: managedContext)
-        group.name = name
-        group.icon = icon
-        group.color = color
-
-        do {
-            try managedContext.save()
-            print("Group saved successfully!")
-            delegate?.didAddGroup()
-        } catch let error as NSError {
-            print("Could not save group. \(error), \(error.userInfo)")
+        let name = nameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        
+        guard !name.isEmpty else {
+            showErrorAlert("Please enter a group name")
+            return
         }
         
-        dismiss(animated: true, completion: nil)
+        guard let userId = Auth.auth().currentUser?.uid else {
+            showErrorAlert("User not authenticated")
+            return
+        }
+        
+        let icon = selectedIcon
+        let color = selectedColor.toHexString()
+        
+        let group = FirestoreGroup(name: name, icon: icon, color: color, userId: userId)
+        
+        firestoreManager.createGroup(group) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    print("Group saved successfully!")
+                    self?.delegate?.didAddGroup()
+                    self?.dismiss(animated: true, completion: nil)
+                case .failure(let error):
+                    print("Could not save group. \(error)")
+                    self?.showErrorAlert("Failed to create group: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    private func showErrorAlert(_ message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 
     // IconPickerVCDelegate Method

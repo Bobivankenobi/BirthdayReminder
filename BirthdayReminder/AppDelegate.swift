@@ -14,6 +14,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Configure Firebase
         FirebaseApp.configure()
         
+        // Configure Firestore settings (optional optimizations)
+        let settings = FirestoreSettings()
+        settings.isPersistenceEnabled = true // Enable offline persistence
+        Firestore.firestore().settings = settings
+        
         // Request notification permission
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             if granted {
@@ -28,7 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        // Handle Google Sign-In URL scheme
         return GIDSignIn.sharedInstance.handle(url)
     }
 
@@ -41,8 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
     }
 
-    // MARK: - Core Data stack
-
+    // MARK: - Core Data stack (Keep for migration purposes)
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "BirthdayReminder")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -52,8 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         return container
     }()
-
-    // MARK: - Core Data Saving support
 
     func saveContext () {
         let context = persistentContainer.viewContext

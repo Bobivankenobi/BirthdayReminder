@@ -31,13 +31,14 @@ class BirthdayCell: UITableViewCell {
         deleteAction?()
     }
 
-    func configure(with birthday: Birthday, deleteAction: @escaping () -> Void) {
+    func configure(with birthday: FirestoreBirthday, deleteAction: @escaping () -> Void) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
 
-        let dateText = dateFormatter.string(from: birthday.date ?? Date())
-        textLabel?.text = "\(birthday.name ?? "No Name") - \(birthday.comment ?? "") - \(dateText)"
+        let dateText = dateFormatter.string(from: birthday.dateValue)
+        let comment = birthday.comment.isEmpty ? "" : " - \(birthday.comment)"
+        textLabel?.text = "\(birthday.name)\(comment) - \(dateText)"
         self.deleteAction = deleteAction
     }
 }

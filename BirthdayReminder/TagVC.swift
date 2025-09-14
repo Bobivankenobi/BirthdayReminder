@@ -1,10 +1,15 @@
 import UIKit
 import CoreData
+import FirebaseFirestore
 
 class TagVC: UIViewController, UITableViewDelegate, UITableViewDataSource, AddNewGroupVCDelegate {
 
-    var managedContext: NSManagedObjectContext!
-    var groups: [Group] = []
+    var managedContext: NSManagedObjectContext! // Keep for migration
+    var groups: [FirestoreGroup] = []
+    var allBirthdays: [FirestoreBirthday] = [] // Cache all birthdays for counting
+    private let firestoreManager = FirestoreManager.shared
+    private var groupsListener: ListenerRegistration?
+    private var birthdaysListener: ListenerRegistration?
 
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -51,19 +56,13 @@ class TagVC: UIViewController, UITableViewDelegate, UITableViewDataSource, AddNe
         navigationItem.title = "Tags"
         configureItems()
         setupTableView()
-        fetchGroups()
-        
-        // Add observer for GroupDeleted notification
-        NotificationCenter.default.addObserver(self, selector: #selector(groupDeleted(_:)), name: NSNotification.Name("GroupDeleted"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(birthdayAdded(_:)), name: NSNotification.Name("BirthdayAdded"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(birthdayDeleted(_:)), name: NSNotification.Name("BirthdayDeleted"), object: nil)
+        setupFirestoreListener()
+        setupBirthdaysListener()
     }
 
     deinit {
-        // Remove observer when the view controller is deallocated
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("GroupDeleted"), object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("BirthdayAdded"), object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("BirthdayDeleted"), object: nil)
+        groupsListener?.remove()
+        birthdaysListener?.remove()
     }
 
     private func configureItems() {
@@ -77,7 +76,7 @@ class TagVC: UIViewController, UITableViewDelegate, UITableViewDataSource, AddNe
     @objc private func addGroup() {
         let addGroupVC = AddNewGroupVC()
         addGroupVC.modalPresentationStyle = .pageSheet
-        addGroupVC.managedContext = managedContext
+        addGroupVC.managedContext = managedContext // Keep for migration
         addGroupVC.delegate = self
 
         if let sheet = addGroupVC.sheetPresentationController {
@@ -112,15 +111,26 @@ class TagVC: UIViewController, UITableViewDelegate, UITableViewDataSource, AddNe
         ])
     }
 
-    private func fetchGroups() {
-        let fetchRequest: NSFetchRequest<Group> = Group.fetchRequest()
-        do {
-            groups = try managedContext.fetch(fetchRequest)
-            tableView.reloadData()
-            updateView()
-        } catch let error as NSError {
-            print("Could not fetch groups. \(error), \(error.userInfo)")
+    private func setupFirestoreListener() {
+        groupsListener = firestoreManager.listenToGroups { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let groups):
+                    self?.groups = groups
+                    self?.tableView.reloadData()
+                    self?.updateView()
+                case .failure(let error):
+                    print("Error fetching groups: \(error)")
+                    self?.showErrorAlert("Failed to load groups: \(error.localizedDescription)")
+                }
+            }
         }
+    }
+    
+    private func showErrorAlert(_ message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 
     private func updateView() {
@@ -134,21 +144,27 @@ class TagVC: UIViewController, UITableViewDelegate, UITableViewDataSource, AddNe
         }
     }
 
-    private func countBirthdays(for group: Group) -> Int {
-        let fetchRequest: NSFetchRequest<Birthday> = Birthday.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "group == %@", group)
-        do {
-            let count = try managedContext.count(for: fetchRequest)
-            return count
-        } catch let error as NSError {
-            print("Could not fetch birthdays count. \(error), \(error.userInfo)")
-            return 0
+    private func setupBirthdaysListener() {
+        firestoreManager.fetchAllBirthdays { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let birthdays):
+                    self?.allBirthdays = birthdays
+                    self?.tableView.reloadData() // Refresh counts
+                case .failure(let error):
+                    print("Error fetching birthdays for counting: \(error)")
+                }
+            }
         }
+    }
+    
+    private func countBirthdays(for group: FirestoreGroup) -> Int {
+        return allBirthdays.filter { $0.groupId == group.id }.count
     }
 
     // AddNewGroupVCDelegate Method
     func didAddGroup() {
-        fetchGroups()
+        // Firestore listener will automatically update the UI
     }
 
     // TableView DataSource Methods
@@ -170,51 +186,27 @@ class TagVC: UIViewController, UITableViewDelegate, UITableViewDataSource, AddNe
 
     private func deleteGroup(at indexPath: IndexPath) {
         let group = groups[indexPath.row]
-
-        // Delete associated birthdays
-        let fetchRequest: NSFetchRequest<Birthday> = Birthday.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "group == %@", group)
-        do {
-            let birthdaysToDelete = try managedContext.fetch(fetchRequest)
-            for birthday in birthdaysToDelete {
-                managedContext.delete(birthday)
+        guard let groupId = group.id else { return }
+        
+        firestoreManager.deleteGroup(groupId) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success():
+                    // Firestore listener will automatically update the UI
+                    print("Group deleted successfully")
+                case .failure(let error):
+                    print("Error deleting group: \(error)")
+                    self?.showErrorAlert("Failed to delete group: \(error.localizedDescription)")
+                }
             }
-        } catch let error as NSError {
-            print("Could not fetch birthdays for deletion. \(error), \(error.userInfo)")
-        }
-
-        // Delete the group
-        managedContext.delete(group)
-        do {
-            try managedContext.save()
-            groups.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-            updateView()
-
-            // Post notification to update the calendar
-            NotificationCenter.default.post(name: NSNotification.Name("GroupDeleted"), object: nil)
-        } catch let error as NSError {
-            print("Could not delete group. \(error), \(error.userInfo)")
         }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let group = groups[indexPath.row]
         let birthdayVC = BirthdayVC()
-        birthdayVC.group = group
-        birthdayVC.managedContext = managedContext
+        birthdayVC.firestoreGroup = group  // Pass Firestore group
+        birthdayVC.managedContext = managedContext // Keep for migration
         navigationController?.pushViewController(birthdayVC, animated: true)
-    }
-
-    @objc private func groupDeleted(_ notification: Notification) {
-        fetchGroups()
-    }
-
-    @objc private func birthdayAdded(_ notification: Notification) {
-        fetchGroups()
-    }
-
-    @objc private func birthdayDeleted(_ notification: Notification) {
-        fetchGroups()
     }
 }

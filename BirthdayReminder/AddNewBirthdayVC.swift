@@ -1,5 +1,7 @@
 import UIKit
 import CoreData
+import FirebaseFirestore
+import FirebaseAuth
 
 protocol AddNewBirthdayVCDelegate: AnyObject {
     func didAddBirthday()
@@ -8,8 +10,10 @@ protocol AddNewBirthdayVCDelegate: AnyObject {
 class AddNewBirthdayVC: UIViewController {
 
     weak var delegate: AddNewBirthdayVCDelegate?
-    var managedContext: NSManagedObjectContext!
-    var group: Group?
+    var managedContext: NSManagedObjectContext! // Keep for migration
+    var group: Group? // Keep for Core Data compatibility
+    var firestoreGroup: FirestoreGroup?
+    private let firestoreManager = FirestoreManager.shared
 
     
     private let titleLabel: UILabel = {
@@ -104,25 +108,45 @@ class AddNewBirthdayVC: UIViewController {
     }
 
     @objc private func createBirthday() {
-        let name = nameTextField.text ?? "No Name"
+        let name = nameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         let date = datePicker.date
-        let comment = commentTextField.text ?? ""
-
-        let birthday = Birthday(context: managedContext)
-        birthday.name = name
-        birthday.date = date
-        birthday.comment = comment
-        birthday.group = group
-
-        do {
-            try managedContext.save()
-            print("Birthday saved successfully!")
-            delegate?.didAddBirthday()
-            NotificationCenter.default.post(name: NSNotification.Name("BirthdayAdded"), object: nil)
-        } catch let error as NSError {
-            print("Could not save birthday. \(error), \(error.userInfo)")
+        let comment = commentTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        
+        guard !name.isEmpty else {
+            showErrorAlert("Please enter a birthday name")
+            return
+        }
+        
+        guard let userId = Auth.auth().currentUser?.uid else {
+            showErrorAlert("User not authenticated")
+            return
+        }
+        
+        guard let groupId = firestoreGroup?.id else {
+            showErrorAlert("No group selected")
+            return
         }
 
-        dismiss(animated: true, completion: nil)
+        let birthday = FirestoreBirthday(name: name, date: date, comment: comment, groupId: groupId, userId: userId)
+
+        firestoreManager.createBirthday(birthday) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    print("Birthday saved successfully!")
+                    self?.delegate?.didAddBirthday()
+                    self?.dismiss(animated: true, completion: nil)
+                case .failure(let error):
+                    print("Could not save birthday. \(error)")
+                    self?.showErrorAlert("Failed to create birthday: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    private func showErrorAlert(_ message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 }

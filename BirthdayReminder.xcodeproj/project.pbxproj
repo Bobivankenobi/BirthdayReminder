@@ -38,6 +38,8 @@
 		713EEC311D204F91A4FC1C04 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91299295EDF4EF4934BBDD4 /* AuthenticationManager.swift */; };
 		C6FC9EF3F82642B69B0E70B8 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37896DB709A4EAF8A216DED /* AuthenticationViewController.swift */; };
 		B53639A4B10744CA86DE54AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A42B0243B0CB4BCEB6090B07 /* GoogleService-Info.plist */; };
+		A17E2FB83F254418A220511B /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E55AC61A0AA4D18860D3EF3 /* FirestoreManager.swift */; };
+		7E2FFFC6C244467885AE38BB /* FirestoreModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B7E7E673634080AFD421EF /* FirestoreModels.swift */; };
 		D99090F8B30D579B67E24882 /* Pods_BirthdayReminderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D47F794A8FBF0A763A9CF863 /* Pods_BirthdayReminderTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +101,8 @@
 		D91299295EDF4EF4934BBDD4 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		B37896DB709A4EAF8A216DED /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		A42B0243B0CB4BCEB6090B07 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8E55AC61A0AA4D18860D3EF3 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
+		66B7E7E673634080AFD421EF /* FirestoreModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreModels.swift; sourceTree = "<group>"; };
 		E8EAFAC7745134D2A3DD2E7A /* Pods-BirthdayReminderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BirthdayReminderTests.release.xcconfig"; path = "Target Support Files/Pods-BirthdayReminderTests/Pods-BirthdayReminderTests.release.xcconfig"; sourceTree = "<group>"; };
 		FB76610F82F91D9BB4981591 /* Pods-BirthdayReminder-BirthdayReminderUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BirthdayReminder-BirthdayReminderUITests.debug.xcconfig"; path = "Target Support Files/Pods-BirthdayReminder-BirthdayReminderUITests/Pods-BirthdayReminder-BirthdayReminderUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -196,6 +200,8 @@
 				D5718F612C220F7A008AC1B0 /* TagVC.swift */,
 				D91299295EDF4EF4934BBDD4 /* AuthenticationManager.swift */,
 				B37896DB709A4EAF8A216DED /* AuthenticationViewController.swift */,
+				8E55AC61A0AA4D18860D3EF3 /* FirestoreManager.swift */,
+				66B7E7E673634080AFD421EF /* FirestoreModels.swift */,
 				D5718F7F2C235897008AC1B0 /* IconPickerVC.swift */,
 				D531A3D32C220A9600956E9A /* AppDelegate.swift */,
 				D531A3D52C220A9600956E9A /* SceneDelegate.swift */,
@@ -489,6 +495,8 @@
 				D5B934B42C24DBED006D2C09 /* BirthdayVC.swift in Sources */,
 				713EEC311D204F91A4FC1C04 /* AuthenticationManager.swift in Sources */,
 				C6FC9EF3F82642B69B0E70B8 /* AuthenticationViewController.swift in Sources */,
+				A17E2FB83F254418A220511B /* FirestoreManager.swift in Sources */,
+				7E2FFFC6C244467885AE38BB /* FirestoreModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

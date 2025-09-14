@@ -31,10 +31,10 @@ class GroupCell: UITableViewCell {
         deleteAction?()
     }
 
-    func configure(with group: Group, birthdayCount: Int, deleteAction: @escaping () -> Void) {
-        textLabel?.text = "\(group.name ?? "No Name") (\(birthdayCount))"
-        imageView?.image = UIImage(systemName: group.icon ?? "figure.walk")
-        imageView?.tintColor = UIColor.fromHexString(group.color ?? "#FF0000")
+    func configure(with group: FirestoreGroup, birthdayCount: Int, deleteAction: @escaping () -> Void) {
+        textLabel?.text = "\(group.name) (\(birthdayCount))"
+        imageView?.image = UIImage(systemName: group.icon)
+        imageView?.tintColor = UIColor.fromHexString(group.color)
         self.deleteAction = deleteAction
     }
     
