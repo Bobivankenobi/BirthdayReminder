@@ -10,3 +10,10 @@
 .env.test
 .env.production
 Pods/
+
+# Xcode
+*.xcuserstate
+*.xcuserdatad
+UserInterfaceState.xcuserstate
+xcuserdata/
+*.xcworkspace/xcuserdata/
