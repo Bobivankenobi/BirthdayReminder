@@ -121,18 +121,14 @@ Users can create and manage birthday groups, add birthdays to groups, view upcom
 ## App Screenshots: ![IMG_4416](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/7efa2b9d-ec5f-4458-8328-033faa67949c)
 
 ![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 21 24](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/1e194ba6-ab5d-4fe2-b631-ef3ca3a2673a)
-![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 21 55](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/7102d44e-7c40-4cca-a3bb-973dcbc35e0a)
-![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 22 14](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/706796d0-01ae-4b44-b242-8266e67f539c)
-![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 21 02](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/09914805-dc89-4199-b570-2929aa46c319)
-![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 19 42](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/7e8ef1e7-fe83-4b85-89f5-7a78c2c4fc32)
-![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 13 31](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/37a9b999-1071-4b43-a4f2-73a73446b29d)
-![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 24 38](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/45bf8de5-03d1-44e1-86dd-63970344e13c)
-![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 22 47](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/b02f2310-4ceb-46a5-8ec1-136057537a93)
-![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 21 13](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/33dddf50-20bf-4049-8e9a-6b892848bc40)
-![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 21 42](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/09c69369-e8f3-440e-9b0c-6d31bdce3380)
-![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 20 44](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/6913b575-f49c-413c-80bf-4f9a155a012c)
-![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 12 17](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/20b9606c-9a66-43ac-9e24-b56092b68406)
-![Simulator Screenshot - iPhone 15 Pro - 2024-06-21 at 00 24 20](https://github.com/Bobivankenobi/BirthdayReminder/assets/58746326/c21f4708-b9b5-491e-b386-5742fb6498ce)
-
+<img width="1290" height="2796" alt="Simulator Screenshot - iPhone 16 Plus - 2025-09-15 at 20 51 23" src="https://github.com/user-attachments/assets/d54aa6ba-5766-4c9c-a8ad-ec0d113c09bf" />
+<img width="1290" height="2796" alt="Simulator Screenshot - iPhone 16 Plus - 2025-09-15 at 20 51 32" src="https://github.com/user-attachments/assets/ff4fadf0-67d5-4d56-bb31-83c23fcdb5c7" />
+<img width="1290" height="2796" alt="Simulator Screenshot - iPhone 16 Plus - 2025-09-15 at 20 51 42" src="https://github.com/user-attachments/assets/2a1a36d1-2c68-4cda-8ae9-2fc36197c093" />
+<img width="1290" height="2796" alt="Simulator Screenshot - iPhone 16 Plus - 2025-09-15 at 20 51 50" src="https://github.com/user-attachments/assets/278bd8df-4dcf-478b-be6f-643dea1991db" />
+<img width="1290" height="2796" alt="Simulator Screenshot - iPhone 16 Plus - 2025-09-15 at 20 51 58" src="https://github.com/user-attachments/assets/bfb241ea-3ceb-4637-9add-02ec158af5b2" />
+<img width="1290" height="2796" alt="Simulator Screenshot - iPhone 16 Plus - 2025-09-15 at 20 52 08" src="https://github.com/user-attachments/assets/61cedf9f-ca14-4d6f-8bc4-b9c2de503573" />
+<img width="1277" height="711" alt="Screenshot 2025-09-15 at 20 52 42" src="https://github.com/user-attachments/assets/df2a10d2-041d-4830-8443-f206a978cf04" />
+<img width="1290" height="2796" alt="Simulator Screenshot - iPhone 16 Plus - 2025-09-15 at 20 53 53" src="https://github.com/user-attachments/assets/c30ebc0c-c1d3-49d1-80ae-e65ee18f0685" />
+<img width="1290" height="2796" alt="Simulator Screenshot - iPhone 16 Plus - 2025-09-15 at 20 54 10" src="https://github.com/user-attachments/assets/36354ada-d0a8-4223-a4b9-ec6b9c04241c" />
 
 
